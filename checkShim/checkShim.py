@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import psutil, docker ,os
+import psutil, docker ,os, sys
 
 exited = 0
 client = docker.from_env()
@@ -11,13 +11,11 @@ for p in psutil.process_iter():
         status = client.containers.get(id).status
         print(p.pid, id[0:5], status.lower())
         if status.lower() == 'exited':
-          os.kill(p.pid, 9)
+          if len(sys.argv) == 2 and sys.argv[1] == 'kill':
+            print('kill')
+            os.kill(p.pid, 9)
           exited +=1
       except Exception as e:
         print(e)
 
 print('total', exited, 'exited but it is running by shim')
-
-
-  
-
