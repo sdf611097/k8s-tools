@@ -1,6 +1,6 @@
 # Usage
 ```
-pip3 install psutil, docker
+pip3 install psutil docker
 python3 checkShim.py
 ```
 if you want to kill the shim process
