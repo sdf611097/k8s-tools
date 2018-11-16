@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import psutil, docker ,os, sys
+import config
 
 exited = 0
-client = docker.from_env()
+#client = docker.from_env()
+client = docker.DockerClient(base_url=config.DOCKER_SOCK, version=config.DOCKER_API_VERSION)
 for p in psutil.process_iter():
     cmd = p.cmdline()
     if len(cmd)>0 and 'docker-containerd-shim' in cmd[0]:
